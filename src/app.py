@@ -13,5 +13,10 @@ def add_task():
     task = {"id": len(tasks) + 1, "title": data['title'], "done": False}
     tasks.append(task)
     return jsonify(task), 200
+@app.route('/tasks/<int:id>', methods=['DELETE'])
+def delete_task(id):
+    global tasks
+    tasks = [t for t in tasks if t['id'] != id]
+    return '', 204
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
