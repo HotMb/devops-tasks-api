@@ -11,3 +11,14 @@ def test_add_task():
     response = client.post('/tasks', json={"title": "Test"})
     assert response.status_code == 201
     assert "id" in response.json
+
+def test_delete_task():
+    client = app.test_client()
+    response = client.post('/tasks', json={"title": "Test"})
+    assert response.status_code == 200
+    assert "id" in response.json
+    response = client.delete(f'/tasks/{response.json["id"]}')
+    assert response.status_code == 204
+    response = client.get('/tasks')
+    assert response.status_code == 200
+    assert len(response.json) == 0
