@@ -12,7 +12,7 @@ def add_task():
     data = request.get_json()
     task = {"id": len(tasks) + 1, "title": data['title'], "done": False}
     tasks.append(task)
-    return jsonify(task), 200
+    return jsonify(task), 201
 @app.route('/tasks/<int:id>', methods=['DELETE'])
 def delete_task(id):
     global tasks
